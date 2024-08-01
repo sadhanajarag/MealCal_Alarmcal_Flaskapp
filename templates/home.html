@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }}</title>
+</head>
+<body style="background-color:powderblue;">
+    <header>
+        <h1 style="color:rgb(160, 11, 147);"><center>Welcome to the {{ title }} Page !!!</center></h1>
+        <nav>
+            <ul>
+                <h3><li><a href = "{{url_for('meal')}}"> Meal Charge Calculator</a></li></h3>
+                <h3><li><a href = "{{url_for('alarm')}}"> Alarm Time Goes Off Calculator</a></li></h3>
+            </ul>
+        </nav>
+    </header>
+<main>
+    {% block content %}
+    {% endblock %}
+</main>    
+</body>
+</html>

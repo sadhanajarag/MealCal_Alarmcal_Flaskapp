@@ -1,0 +1,107 @@
+Pseudocode Stepwise 
+
+MAIN IDEA
+1. Import necessary modules from Flask.
+2. Initialize the Flask application.
+3. Define routes and their associated functions.
+4. Run the application in debug mode.
+
+BASIC LAYOUT FOR WEB PAGES
+1. Create a basic layout page "base.html" to be used by all other templates.
+
+HOME PAGE 
+
+1. Define a route for the home page.
+2. Render the "home.html" template with the title "Home".
+3. There are link for the two applications - Meal Charge Calculator and Alarm Off Time Calculator
+
+MEAL CHARGE CALCULATOR
+
+1. Define a route for the meal calculator with methods GET and POST.
+    - This will take food_charge value from user from 'meal.html' page.
+    - We will do validition there using html and send for calculations 
+2. If the request method is POST:
+    - Try to:
+        - Retrieve the food_charge from the form and convert it to a float.
+        - Calculate the tip as 18% of food_charge.
+        - Calculate the sales_tax as 7% of food_charge.
+        - Calculate the total_amount as the sum of food_charge, tip, and sales_tax.
+    - If a ValueError occurs (invalid input), set all variables to None.
+3. If the request method is GET, set all variables to None.
+4. Render the meal.html template with the calculated values and the title "Meal".
+
+ALARM  OFF TIME  CALCULATOR
+
+1. Define a route for the alarm calculator with methods GET and POST.
+2. If the request method is POST:
+    - Retrieve the current_time from the form and convert it to an integer.
+    - Retrieve the hours_to_wait from the form and convert it to an integer.
+    - Calculate the alarm_time as (current_time + hours_to_wait) % 24.
+    - Determine the period (AM/PM) based on the alarm_time:
+        - If alarm_time is between 0 and 11 (inclusive), it is AM.
+        - If alarm_time is between 12 and 23 (inclusive), it is PM.
+    - Render the alarm.html template with the calculated values and the title "Alarm".
+3. If the request method is GET, set alarm_time to None.
+4. Render the alarm.html template with alarm_time set to None and the title "Alarm".
+
+RUN App:
+
+1. Run the Flask application in debug mode if this script is executed as the main program
+
+SUMMARY:
+
+- The home route renders a home page where the user can navigate to other pages.
+- The meal route calculates the tip, sales tax, and total amount based on the input food charge, handling both GET and POST requests.
+- The alarm route calculates the alarm time and determines whether it is AM or PM based on the current time and hours to wait, handling both GET and POST requests.
+- The application runs in debug mode when executed.
+- From each page we can navigate other page using the link provided.
+==================================================================================================================================================================
+
+import necessary libraries
+
+initialize Flask app
+
+# Basic Layout
+create "base.html" for common utility uses
+
+# Home Route
+
+route "/"
+    function home():
+        render "home.html" with title="Home"
+
+# Meal Charge Calculator Route
+
+route "/meal", methods=["GET", "POST"]
+    function meal():
+        if request.method == "POST":
+            try:
+                food_charge = get form value "food_charge" as float
+                tip = food_charge * 0.18
+                sales_tax = food_charge * 0.07
+                total_amount = food_charge + tip + sales_tax
+            except ValueError:
+                food_charge = tip = sales_tax = total_amount = None
+        else:
+            food_charge = tip = sales_tax = total_amount = None
+        render "meal.html" with food_charge, tip, sales_tax, total_amount, title="Meal"
+
+# Alarm Off Time Calculator Route
+
+route "/alarm", methods=["GET", "POST"]
+    function alarm():
+        if request.method == "POST":
+            current_time = get form value "current_time" as int
+            hours_to_wait = get form value "hours_to_wait" as int
+            alarm_time = (current_time + hours_to_wait) % 24
+            period = "AM" if 0 <= alarm_time < 12 else "PM"
+            render "alarm.html" with current_time, hours_to_wait, alarm_time, title="Alarm", period
+        else:
+            render "alarm.html" with alarm_time=None, title="Alarm"
+
+# Run Application
+if _name_ == "_main_":
+    run app with debug=True
+
+
+
