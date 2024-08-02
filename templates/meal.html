@@ -6,15 +6,15 @@
 
 <form method = "post">
     <label for = "food_charge">Enter the charge of the food : </label>
-    <input type = "number" id = "food_charge" name = "food_charge" step ="0.01" required>
+    <input type = "number" min="1" id = "food_charge" name = "food_charge" step ="0.01" required>
     <button type="submit">Calculate</button>
 </form>
 {% if food_charge is not none %}
     <h2>Output</h2>
-    <p style="font-size: 18px; font-weight: bold;">Charge for the food: $ {{ food_charge|float }}</p>
-    <p style="font-size: 18px; font-weight: bold;">Tip (18%): $ {{ tip|float }}</p>
-    <p style="font-size: 18px; font-weight: bold;">Sales Tax (7%) : $ {{ sales_tax|float }}</p>
-    <p style="font-size: 20px; font-weight: bold; color: rgb(250, 12, 159);">Total amount need to pay is : $ {{ total_amount|float }}</p>
+    <p style="font-size: 18px; font-weight: bold;">Charge for the food: $ {{ "%0.2f" | format(food_charge |float) }}</p>
+    <p style="font-size: 18px; font-weight: bold;">Tip (18%): $ {{ "%0.2f" | format(tip |float) }}</p>
+    <p style="font-size: 18px; font-weight: bold;">Sales Tax (7%) : $ {{ "%0.2f" | format(sales_tax |float) }}</p>
+    <p style="font-size: 20px; font-weight: bold; color: rgb(250, 12, 159);">Total amount need to pay is : $ {{ "%0.2f" | format(total_amount |float) }}</p>
 {% endif %}
 <br>
 <ul>
